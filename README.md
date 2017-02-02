@@ -1,0 +1,1 @@
+# HelpScout Go Client API
