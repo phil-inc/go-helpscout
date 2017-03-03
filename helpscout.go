@@ -42,7 +42,8 @@ func (c *Client) Get(uri string) []byte {
 	return body
 }
 
-func (c *Client) Post(uri string, reqBody string) {
+func (c *Client) Post(uri string, reqBody string) http.Header {
+	fmt.Println(c.url(uri))
 	var jsonStr = []byte(reqBody)
 	req, err := http.NewRequest("POST", c.url(uri), bytes.NewBuffer(jsonStr))
 	req.Header.Set("Content-Type", "application/json")
@@ -55,10 +56,14 @@ func (c *Client) Post(uri string, reqBody string) {
 	defer resp.Body.Close()
 
 	body, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println("response Body:", string(body))
+	if body == nil {
+		panic("POST request to helpscout failed")
+	}
+	
+	return resp.Header
 }
 
-func (c *Client) Put(uri string, reqBody string) {
+func (c *Client) Put(uri string, reqBody string) http.Header {
 
 	var jsonStr = []byte(reqBody)
 	req, err := http.NewRequest("PUT", c.url(uri), bytes.NewBuffer(jsonStr))
@@ -73,6 +78,10 @@ func (c *Client) Put(uri string, reqBody string) {
 
 	body, _ := ioutil.ReadAll(resp.Body)
 	fmt.Println("response Body:", string(body))
+	if body == nil {
+		panic("POST request to helpscout failed")
+	}
+	return resp.Header
 }
 
 func (c *Client) CreateCustomer(customerStr string) {
@@ -80,9 +89,38 @@ func (c *Client) CreateCustomer(customerStr string) {
 	c.Post(uri, customerStr)
 }
 
-func (c *Client) CreateConversation(conversationStr string) {
+func getIDFromLocation(location string) string {
+	var IDWithExt string
+	for i := len(location) - 1; i >= 0; i-- {
+		if location[i] == '/' {
+			IDWithExt = location[i+1:]
+			break
+		}
+	}
+	var ID string
+	for i := 0; i<len(IDWithExt) ; i++ {
+		if IDWithExt[i] == '.' {
+			return IDWithExt[:i]
+		} 
+	}	
+	return ID
+}
+
+func getIDFromResponseHeader(respHeader http.Header) string  {
+	var ID string
+	for k, v := range respHeader {
+		if(k == "Location") {
+			ID = getIDFromLocation(v[0])
+		}
+	}
+	return ID
+}
+
+func (c *Client) CreateConversation(conversationStr string) string {
 	uri := fmt.Sprintf("conversations.json")
-	c.Post(uri, conversationStr)
+	respHeader := c.Post(uri, conversationStr)
+	conversationID := getIDFromResponseHeader(respHeader)
+	return conversationID
 }
 
 func (c *Client) CreateConversationThread(conversationThreadStr string, conversationID string) {
