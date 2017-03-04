@@ -6,207 +6,207 @@ import (
 )
 
 type Conversation struct {
-	ID           int           `json:"id"`
-	Type         string        `json:"type"`
-	Folder       string        `json:"folder"`
-	IsDraft      bool          `json:"isDraft"`
-	Number       int           `json:"number"`
-	Owner        Person        `json:"owner"`
-	Mailbox      MailboxRef    `json:"mailbox"`
-	Customer     Person        `json:"customer"`
-	ThreadCount  int           `json:"threadCount"`
-	Status       string        `json:"status"`
-	Subject      string        `json:"subject"`
-	Preview      string        `json:"preview"`
-	CreatedBy    Person        `json:"createdBy"`
-	CreatedAt    time.Time     `json:"createdAt"`
-	ModifiedAt   time.Time     `json:"modifiedAt"`
-	ClosedAt     time.Time     `json:"closedAt"`
-	ClosedBy     Person        `json:"closedBy"`
-	Source       Source        `json:"source"`
-	Cc           []string      `json:"cc"`
-	Bcc          []string      `json:"bcc"`
-	Tags         []string      `json:"tags"`
-	CustomFields []CustomField `json:"customFields"`
-	Threads      []Thread      `json:"threads"`
+	ID           int           `json:"id,omitempty"`
+	Type         string        `json:"type,omitempty"`
+	Folder       string        `json:"folder,omitempty"`
+	IsDraft      bool          `json:"isDraft,omitempty"`
+	Number       int           `json:"number,omitempty"`
+	Owner        Person        `json:"owner,omitempty"`
+	Mailbox      MailboxRef    `json:"mailbox,omitempty"`
+	Customer     Person        `json:"customer,omitempty"`
+	ThreadCount  int           `json:"threadCount,omitempty"`
+	Status       string        `json:"status,omitempty"`
+	Subject      string        `json:"subject,omitempty"`
+	Preview      string        `json:"preview,omitempty"`
+	CreatedBy    Person        `json:"createdBy,omitempty"`
+	CreatedAt    time.Time     `json:"createdAt,omitempty"`
+	ModifiedAt   time.Time     `json:"modifiedAt,omitempty"`
+	ClosedAt     time.Time     `json:"closedAt,omitempty"`
+	ClosedBy     Person        `json:"closedBy,omitempty"`
+	Source       Source        `json:"source,omitempty"`
+	Cc           []string      `json:"cc,omitempty"`
+	Bcc          []string      `json:"bcc,omitempty"`
+	Tags         []string      `json:"tags,omitempty"`
+	CustomFields []CustomField `json:"customFields,omitempty"`
+	Threads      []Thread      `json:"threads,omitempty"`
 }
 
 type Attachment struct {
-	ID       int    `json:"id"`
-	MimeType string `json:"mimeType"`
-	Filename string `json:"filename"`
-	Size     int    `json:"size"`
-	Width    int    `json:"width"`
-	Height   int    `json:"height"`
-	URL      string `json:"url"`
+	ID       int    `json:"id,omitempty"`
+	MimeType string `json:"mimeType,omitempty"`
+	Filename string `json:"filename,omitempty"`
+	Size     int    `json:"size,omitempty"`
+	Width    int    `json:"width,omitempty"`
+	Height   int    `json:"height,omitempty"`
+	URL      string `json:"url,omitempty"`
 }
 
 type AttachmentData struct {
-	ID   int    `json:"id"`
-	Data string `json:"data"`
+	ID   int    `json:"id,omitempty"`
+	Data string `json:"data,omitempty"`
 }
 
 type Source struct {
-	Type string `json:"type"`
-	Via  string `json:"via"`
+	Type string `json:"type,omitempty"`
+	Via  string `json:"via,omitempty"`
 }
 
 type Thread struct {
-	ID                int          `json:"id"`
-	AssignedTo        Person       `json:"assignedTo"`
-	Status            string       `json:"status"`
-	CreatedAt         time.Time    `json:"createdAt"`
-	OpenedAt          string       `json:"openedAt"`
-	CreatedBy         Person       `json:"createdBy"`
-	Source            Source       `json:"source"`
-	ActionType        string       `json:"actionType"`
-	ActionSourceID    int          `json:"actionSourceId"`
-	Type              string       `json:"type"`
-	State             string       `json:"state"`
-	Customer          Person       `json:"customer"`
-	FromMailbox       MailboxRef   `json:"fromMailbox"`
-	Body              string       `json:"body"`
-	To                []string     `json:"to"`
-	Cc                []string     `json:"cc"`
-	Bcc               []string     `json:"bcc"`
-	Attachments       []Attachment `json:"attachments"`
-	SavedReplyID      int          `json:"savedReplyId"`
-	CreatedByCustomer bool         `json:"createdByCustomer"`
+	ID                int          `json:"id,omitempty"`
+	AssignedTo        Person       `json:"assignedTo,omitempty"`
+	Status            string       `json:"status,omitempty"`
+	CreatedAt         time.Time    `json:"createdAt,omitempty"`
+	OpenedAt          string       `json:"openedAt,omitempty"`
+	CreatedBy         Person       `json:"createdBy,omitempty"`
+	Source            Source       `json:"source,omitempty"`
+	ActionType        string       `json:"actionType,omitempty"`
+	ActionSourceID    int          `json:"actionSourceId,omitempty"`
+	Type              string       `json:"type,omitempty"`
+	State             string       `json:"state,omitempty"`
+	Customer          Person       `json:"customer,omitempty"`
+	FromMailbox       MailboxRef   `json:"fromMailbox,omitempty"`
+	Body              string       `json:"body,omitempty"`
+	To                []string     `json:"to,omitempty"`
+	Cc                []string     `json:"cc,omitempty"`
+	Bcc               []string     `json:"bcc,omitempty"`
+	Attachments       []Attachment `json:"attachments,omitempty"`
+	SavedReplyID      int          `json:"savedReplyId,omitempty"`
+	CreatedByCustomer bool         `json:"createdByCustomer,omitempty"`
 }
 
 type CustomField struct {
-	ID        int      `json:"id"`
-	FieldName string   `json:"fieldName"`
-	FieldType string   `json:"fieldType"`
-	Required  bool     `json:"required"`
-	Order     int      `json:"order"`
-	Options   []Option `json:"options"`
+	ID        int      `json:"id,omitempty"`
+	FieldName string   `json:"fieldName,omitempty"`
+	FieldType string   `json:"fieldType,omitempty"`
+	Required  bool     `json:"required,omitempty"`
+	Order     int      `json:"order,omitempty"`
+	Options   []Option `json:"options,omitempty"`
 }
 
 type Option struct {
-	ID    int    `json:"id"`
-	Label string `json:"label"`
-	Order int    `json:"order"`
+	ID    int    `json:"id,omitempty"`
+	Label string `json:"label,omitempty"`
+	Order int    `json:"order,omitempty"`
 }
 
 type CustomerAddress struct {
-	ID         int       `json:"id"`
-	Lines      []string  `json:"lines"`
-	City       string    `json:"city"`
-	State      string    `json:"state"`
-	PostalCode string    `json:"postalCode"`
-	Country    string    `json:"country"`
-	CreatedAt  time.Time `json:"createdAt"`
-	ModifiedAt time.Time `json:"modifiedAt"`
+	ID         int       `json:"id,omitempty"`
+	Lines      []string  `json:"lines,omitempty"`
+	City       string    `json:"city,omitempty"`
+	State      string    `json:"state,omitempty"`
+	PostalCode string    `json:"postalCode,omitempty"`
+	Country    string    `json:"country,omitempty"`
+	CreatedAt  time.Time `json:"createdAt,omitempty"`
+	ModifiedAt time.Time `json:"modifiedAt,omitempty"`
 }
 
 type CustomerSocialProfile struct {
-	ID    int    `json:"id"`
-	Value string `json:"value"`
-	Type  string `json:"type"`
+	ID    int    `json:"id,omitempty"`
+	Value string `json:"value,omitempty"`
+	Type  string `json:"type,omitempty"`
 }
 
 type CustomerEmail struct {
-	ID       int    `json:"id"`
-	Value    string `json:"value"`
-	Location string `json:"location"`
+	ID       int    `json:"id,omitempty"`
+	Value    string `json:"value,omitempty"`
+	Location string `json:"location,omitempty"`
 }
 
 type CustomerChat struct {
-	ID    int    `json:"id"`
-	Value string `json:"value"`
-	Type  string `json:"type"`
+	ID    int    `json:"id,omitempty"`
+	Value string `json:"value,omitempty"`
+	Type  string `json:"type,omitempty"`
 }
 
 type CustomerPhone struct {
-	ID       int    `json:"id"`
-	Value    string `json:"value"`
-	Location string `json:"location"`
+	ID       int    `json:"id,omitempty"`
+	Value    string `json:"value,omitempty"`
+	Location string `json:"location,omitempty"`
 }
 
 type CustomerWebsite struct {
-	ID    int    `json:"id"`
-	Value string `json:"value"`
+	ID    int    `json:"id,omitempty"`
+	Value string `json:"value,omitempty"`
 }
 
 type Customer struct {
-	ID             int                     `json:"id"`
-	FirstName      string                  `json:"firstName"`
-	LastName       string                  `json:"lastName"`
-	PhotoURL       string                  `json:"photoUrl"`
-	PhotoType      string                  `json:"photoType"`
-	Gender         string                  `json:"gender"`
-	Age            string                  `json:"age"`
-	Organization   string                  `json:"organization"`
-	JobTitle       string                  `json:"jobTitle"`
-	Location       string                  `json:"location"`
-	Background     string                  `json:"background"`
-	CreatedAt      time.Time               `json:"createdAt"`
-	ModifiedAt     time.Time               `json:"modifiedAt"`
-	Address        CustomerAddress         `json:"address"`
-	SocialProfiles []CustomerSocialProfile `json:"socialProfiles"`
-	Emails         []CustomerEmail         `json:"emails"`
-	Phones         []CustomerPhone         `json:"phones"`
-	Chats          []CustomerChat          `json:"chats"`
-	Websites       []CustomerWebsite       `json:"websites"`
+	ID             int                     `json:"id,omitempty"`
+	FirstName      string                  `json:"firstName,omitempty"`
+	LastName       string                  `json:"lastName,omitempty"`
+	PhotoURL       string                  `json:"photoUrl,omitempty"`
+	PhotoType      string                  `json:"photoType,omitempty"`
+	Gender         string                  `json:"gender,omitempty"`
+	Age            string                  `json:"age,omitempty"`
+	Organization   string                  `json:"organization,omitempty"`
+	JobTitle       string                  `json:"jobTitle,omitempty"`
+	Location       string                  `json:"location,omitempty"`
+	Background     string                  `json:"background,omitempty"`
+	CreatedAt      time.Time               `json:"createdAt,omitempty"`
+	ModifiedAt     time.Time               `json:"modifiedAt,omitempty"`
+	Address        CustomerAddress         `json:"address,omitempty"`
+	SocialProfiles []CustomerSocialProfile `json:"socialProfiles,omitempty"`
+	Emails         []CustomerEmail         `json:"emails,omitempty"`
+	Phones         []CustomerPhone         `json:"phones,omitempty"`
+	Chats          []CustomerChat          `json:"chats,omitempty"`
+	Websites       []CustomerWebsite       `json:"websites,omitempty"`
 }
 
 type Mailbox struct {
-	ID         int       `json:"id"`
-	Name       string    `json:"name"`
-	Slug       string    `json:"slug"`
-	Email      string    `json:"email"`
-	CreatedAt  time.Time `json:"createdAt"`
-	ModifiedAt time.Time `json:"modifiedAt"`
-	Folders    []Folder  `json:"folders"`
+	ID         int       `json:"id,omitempty"`
+	Name       string    `json:"name,omitempty"`
+	Slug       string    `json:"slug,omitempty"`
+	Email      string    `json:"email,omitempty"`
+	CreatedAt  time.Time `json:"createdAt,omitempty"`
+	ModifiedAt time.Time `json:"modifiedAt,omitempty"`
+	Folders    []Folder  `json:"folders,omitempty"`
 }
 
 type Folder struct {
-	ID          int       `json:"id"`
-	Name        string    `json:"name"`
-	Type        string    `json:"type"`
-	UserID      int       `json:"userId"`
-	TotalCount  int       `json:"totalCount"`
-	ActiveCount int       `json:"activeCount"`
-	ModifiedAt  time.Time `json:"modifiedAt"`
+	ID          int       `json:"id,omitempty"`
+	Name        string    `json:"name,omitempty"`
+	Type        string    `json:"type,omitempty"`
+	UserID      int       `json:"userId,omitempty"`
+	TotalCount  int       `json:"totalCount,omitempty"`
+	ActiveCount int       `json:"activeCount,omitempty"`
+	ModifiedAt  time.Time `json:"modifiedAt,omitempty"`
 }
 
 type Person struct {
-	ID        int         `json:"id"`
-	FirstName string      `json:"firstName"`
-	LastName  string      `json:"lastName"`
-	Email     string      `json:"email"`
-	Phone     interface{} `json:"phone"`
-	Type      string      `json:"type"`
+	ID        int         `json:"id,omitempty"`
+	FirstName string      `json:"firstName,omitempty"`
+	LastName  string      `json:"lastName,omitempty"`
+	Email     string      `json:"email,omitempty"`
+	Phone     interface{} `json:"phone,omitempty"`
+	Type      string      `json:"type,omitempty"`
 }
 
 type MailboxRef struct {
-	ID   int    `json:"id"`
-	Name string `json:"name"`
+	ID   int    `json:"id,omitempty"`
+	Name string `json:"name,omitempty"`
 }
 
 type User struct {
-	ID         int       `json:"id"`
-	FirstName  string    `json:"firstName"`
-	LastName   string    `json:"lastName"`
-	Email      string    `json:"email"`
-	Role       string    `json:"role"`
-	Timezone   string    `json:"timezone"`
-	PhotoURL   string    `json:"photoUrl"`
-	CreatedAt  time.Time `json:"createdAt"`
-	ModifiedAt time.Time `json:"modifiedAt"`
-	Type       string    `json:"type"`
+	ID         int       `json:"id,omitempty"`
+	FirstName  string    `json:"firstName,omitempty"`
+	LastName   string    `json:"lastName,omitempty"`
+	Email      string    `json:"email,omitempty"`
+	Role       string    `json:"role,omitempty"`
+	Timezone   string    `json:"timezone,omitempty"`
+	PhotoURL   string    `json:"photoUrl,omitempty"`
+	CreatedAt  time.Time `json:"createdAt,omitempty"`
+	ModifiedAt time.Time `json:"modifiedAt,omitempty"`
+	Type       string    `json:"type,omitempty"`
 }
 
 type ApiError struct {
-	Code  int    `json:"id"`
-	Error string `json:"error`
+	Code  int    `json:"id,omitempty"`
+	Error string `json:"error,omitempty"`
 }
 
 type Page struct {
-	Page  int `json:"page"`
-	Pages int `json:"pages"`
-	Count int `json:"count"`
+	Page  int `json:"page,omitempty"`
+	Pages int `json:"pages,omitempty"`
+	Count int `json:"count,omitempty"`
 	Items json.RawMessage
 }
 
