@@ -42,31 +42,9 @@ func (c *Client) Get(uri string) []byte {
 	return body
 }
 
-func (c *Client) Post(uri string, reqBody string) http.Header {
-	fmt.Println(c.url(uri))
-	var jsonStr = []byte(reqBody)
-	req, err := http.NewRequest("POST", c.url(uri), bytes.NewBuffer(jsonStr))
-	req.Header.Set("Content-Type", "application/json")
-	req.SetBasicAuth(c.Key, "X")
+func (c *Client) Put(uri string, reqBody* bytes.Buffer) http.Header {
 
-	resp, err := c.HTTPClient.Do(req)
-	if err != nil {
-		panic(err)
-	}
-	defer resp.Body.Close()
-
-	body, _ := ioutil.ReadAll(resp.Body)
-	if body == nil {
-		panic("POST request to helpscout failed")
-	}
-	
-	return resp.Header
-}
-
-func (c *Client) Put(uri string, reqBody string) http.Header {
-
-	var jsonStr = []byte(reqBody)
-	req, err := http.NewRequest("PUT", c.url(uri), bytes.NewBuffer(jsonStr))
+	req, err := http.NewRequest("PUT", c.url(uri), reqBody)
 	req.Header.Set("Content-Type", "application/json")
 	req.SetBasicAuth(c.Key, "X")
 
@@ -84,9 +62,11 @@ func (c *Client) Put(uri string, reqBody string) http.Header {
 	return resp.Header
 }
 
-func (c *Client) CreateCustomer(customerStr string) {
+func (c *Client) CreateCustomer(customer Customer) {
 	uri := fmt.Sprintf("customers.json")
-	c.Post(uri, customerStr)
+	b := new(bytes.Buffer)
+	json.NewEncoder(b).Encode(customer)
+	c.Post(uri, b)
 }
 
 func getIDFromLocation(location string) string {
@@ -116,21 +96,48 @@ func getIDFromResponseHeader(respHeader http.Header) string  {
 	return ID
 }
 
-func (c *Client) CreateConversation(conversationStr string) string {
+func (c *Client) Post(uri string, reqBody* bytes.Buffer) http.Header {
+	fmt.Println(c.url(uri))
+	req, err := http.NewRequest("POST", c.url(uri), reqBody)
+	req.Header.Set("Content-Type", "application/json")
+	req.SetBasicAuth(c.Key, "X")
+
+	resp, err := c.HTTPClient.Do(req)
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+	body, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println("response Body:", string(body))
+	if body == nil {
+		panic("POST request to helpscout failed")
+	}
+	
+	return resp.Header
+}
+
+func (c *Client) CreateConversation(conversation Conversation) string {
 	uri := fmt.Sprintf("conversations.json")
-	respHeader := c.Post(uri, conversationStr)
+	b := new(bytes.Buffer)
+	json.NewEncoder(b).Encode(conversation)
+	respHeader := c.Post(uri, b)
 	conversationID := getIDFromResponseHeader(respHeader)
 	return conversationID
 }
 
-func (c *Client) CreateConversationThread(conversationThreadStr string, conversationID string) {
+func (c *Client) CreateConversationThread(conversationThread Thread, conversationID string) {
 	uri := fmt.Sprintf("conversations/%s.json", conversationID)
-	c.Post(uri, conversationThreadStr)
+	b := new(bytes.Buffer)
+	json.NewEncoder(b).Encode(conversationThread)
+	c.Post(uri, b)
 }
 
-func (c *Client) UpdateConversationThread(conversationThreadBodyStr string, conversationID string, conversationThreadID string) {
+func (c *Client) UpdateConversationThread(conversationThread Thread, conversationID string, conversationThreadID string) {
     uri := fmt.Sprintf("conversations/%s/threads/%s.json", conversationID, conversationThreadID)
-    c.Put(uri, conversationThreadBodyStr)
+    b := new(bytes.Buffer)
+	json.NewEncoder(b).Encode(conversationThread)
+	c.Put(uri, b)
 }
 
 func (c *Client) getPage(uri string) *Page {
