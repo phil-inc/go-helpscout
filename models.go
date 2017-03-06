@@ -2,6 +2,7 @@ package helpscout
 
 import (
 	"encoding/json"
+	"time"
 )
 
 type Conversation struct {
@@ -18,9 +19,9 @@ type Conversation struct {
 	Subject      string        `json:"subject,omitempty"`
 	Preview      string        `json:"preview,omitempty"`
 	CreatedBy    Person        `json:"createdBy,omitempty"`
-	CreatedAt    string     `json:"createdAt,omitempty"`
-	ModifiedAt   string     `json:"modifiedAt,omitempty"`
-	ClosedAt     string     `json:"closedAt,omitempty"`
+	CreatedAt    time.Time     `json:"createdAt,omitempty"`
+	ModifiedAt   time.Time     `json:"modifiedAt,omitempty"`
+	ClosedAt     time.Time     `json:"closedAt,omitempty"`
 	ClosedBy     Person        `json:"closedBy,omitempty"`
 	Source       Source        `json:"source,omitempty"`
 	Cc           []string      `json:"cc,omitempty"`
@@ -54,7 +55,7 @@ type Thread struct {
 	ID                int          `json:"id,omitempty"`
 	AssignedTo        Person       `json:"assignedTo,omitempty"`
 	Status            string       `json:"status,omitempty"`
-	CreatedAt         string    `json:"createdAt,omitempty"`
+	CreatedAt         time.Time    `json:"createdAt,omitempty"`
 	OpenedAt          string       `json:"openedAt,omitempty"`
 	CreatedBy         Person       `json:"createdBy,omitempty"`
 	Source            Source       `json:"source,omitempty"`
@@ -95,8 +96,8 @@ type CustomerAddress struct {
 	State      string    `json:"state,omitempty"`
 	PostalCode string    `json:"postalCode,omitempty"`
 	Country    string    `json:"country,omitempty"`
-	CreatedAt  string `json:"createdAt,omitempty"`
-	ModifiedAt string `json:"modifiedAt,omitempty"`
+	CreatedAt  time.Time `json:"createdAt,omitempty"`
+	ModifiedAt time.Time `json:"modifiedAt,omitempty"`
 }
 
 type CustomerSocialProfile struct {
@@ -140,8 +141,8 @@ type Customer struct {
 	JobTitle       string                  `json:"jobTitle,omitempty"`
 	Location       string                  `json:"location,omitempty"`
 	Background     string                  `json:"background,omitempty"`
-	CreatedAt      string               `json:"createdAt,omitempty"`
-	ModifiedAt     string               `json:"modifiedAt,omitempty"`
+	CreatedAt      time.Time               `json:"createdAt,omitempty"`
+	ModifiedAt     time.Time               `json:"modifiedAt,omitempty"`
 	Address        CustomerAddress         `json:"address,omitempty"`
 	SocialProfiles []CustomerSocialProfile `json:"socialProfiles,omitempty"`
 	Emails         []CustomerEmail         `json:"emails,omitempty"`
@@ -155,8 +156,8 @@ type Mailbox struct {
 	Name       string    `json:"name,omitempty"`
 	Slug       string    `json:"slug,omitempty"`
 	Email      string    `json:"email,omitempty"`
-	CreatedAt  string `json:"createdAt,omitempty"`
-	ModifiedAt string `json:"modifiedAt,omitempty"`
+	CreatedAt  time.Time `json:"createdAt,omitempty"`
+	ModifiedAt time.Time `json:"modifiedAt,omitempty"`
 	Folders    []Folder  `json:"folders,omitempty"`
 }
 
@@ -167,7 +168,7 @@ type Folder struct {
 	UserID      int       `json:"userId,omitempty"`
 	TotalCount  int       `json:"totalCount,omitempty"`
 	ActiveCount int       `json:"activeCount,omitempty"`
-	ModifiedAt  string `json:"modifiedAt,omitempty"`
+	ModifiedAt  time.Time `json:"modifiedAt,omitempty"`
 }
 
 type Person struct {
@@ -192,8 +193,8 @@ type User struct {
 	Role       string    `json:"role,omitempty"`
 	Timezone   string    `json:"timezone,omitempty"`
 	PhotoURL   string    `json:"photoUrl,omitempty"`
-	CreatedAt  string `json:"createdAt,omitempty"`
-	ModifiedAt string `json:"modifiedAt,omitempty"`
+	CreatedAt  time.Time `json:"createdAt,omitempty"`
+	ModifiedAt time.Time `json:"modifiedAt,omitempty"`
 	Type       string    `json:"type,omitempty"`
 }
 
